@@ -81,8 +81,25 @@ body {
   background-color: #050817;
   background-image: url('bungu.png');
   background-position: top center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 0;
+  height: 43%;
+  background:
+    linear-gradient(90deg, rgba(2, 6, 20, 0) 0%, rgba(2, 6, 20, 0) 28%, rgba(3, 9, 30, 0.42) 43%, rgba(2, 6, 20, 0.9) 100%),
+    linear-gradient(180deg, rgba(2, 6, 20, 0.72) 0%, rgba(3, 9, 30, 0.42) 52%, rgba(3, 9, 30, 0) 100%);
+  pointer-events: none;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero {
@@ -112,10 +129,27 @@ body {
 h1 {
   margin: 0;
   color: var(--ink);
-  font-size: clamp(24px, 4vw, 42px);
+  font-size: clamp(28px, 4.5vw, 50px);
   letter-spacing: 3px;
   line-height: 1.1;
   font-family: 'Orbitron', Arial, sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.title-ps4,
+.title-jailbreak {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title-ps4 {
+  background-image: linear-gradient(180deg, #ffffff 12%, #dce9ff 55%, #ffffff 100%);
+}
+
+.title-jailbreak {
+  background-image: linear-gradient(180deg, #e5f5ff 5%, #40b8ff 48%, #1269e8 100%);
 }
 
 .byline {
@@ -125,15 +159,21 @@ h1 {
   letter-spacing: 2px;
   text-transform: uppercase;
   font-family: 'Orbitron', Arial, sans-serif;
+  font-weight: 300;
+}
+
+.byline strong {
+  color: #fff;
+  font-weight: 800;
 }
 
 h3 {
   max-width: 100%;
   margin: 12px auto 22px;
   overflow: hidden;
-  color: var(--muted);
+  color: #fff;
   font-size: 10px;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 1px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -177,7 +217,7 @@ input[type='radio'] {
 }
 .segmented-control label {
   display: flex;
-  min-height: 58px;
+  min-height: 70px;
   align-items: center;
   justify-content: center;
   padding: 12px 10px;
@@ -185,12 +225,20 @@ input[type='radio'] {
   border-radius: var(--radius);
   color: var(--muted);
   background: linear-gradient(145deg, rgba(15, 26, 61, 0.92), rgba(4, 10, 27, 0.9));
-  font-size: clamp(9px, 1vw, 12px);
+  font-size: clamp(12px, 1.2vw, 16px);
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: 180ms ease;
   font-family: Arial, sans-serif;
   font-weight: 600;
+}
+.segmented-control label:hover,
+.segmented-control label:focus-visible {
+  border-color: var(--accent-bright);
+  color: #fff;
+  background: linear-gradient(145deg, rgba(24, 115, 220, 0.92), rgba(11, 35, 104, 0.96));
+  box-shadow: 0 0 22px rgba(20, 167, 255, 0.3);
+  transform: translateY(-3px);
 }
 input[type='radio']:checked + label {
   border-color: var(--accent-bright);
@@ -206,23 +254,27 @@ button {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  min-height: 72px;
+  min-height: 98px;
   padding: 16px 24px;
   border: 1px solid var(--accent-bright);
   border-radius: var(--radius);
   color: #fff;
   background: linear-gradient(135deg, #087cff, #1533b4 70%, #241879);
-  font-family: Arial, sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-family: 'Orbitron', Arial, sans-serif;
+  font-size: clamp(30px, 3.2vw, 44px);
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  -webkit-text-stroke: 0.35px currentColor;
+  text-shadow:
+    0 2px 0 rgba(0, 20, 80, 0.55),
+    0 0 14px rgba(255, 255, 255, 0.18);
   cursor: pointer;
   transition: 180ms ease;
 }
 
 button img {
-  width: 19px;
-  height: 19px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
 button:hover {
@@ -246,13 +298,13 @@ button:hover:disabled {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 58px;
+  min-height: 70px;
   padding: 8px 10px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   color: var(--muted);
   background: linear-gradient(145deg, rgba(15, 26, 61, 0.92), rgba(4, 10, 27, 0.9));
-  font-size: clamp(9px, 1vw, 12px);
+  font-size: clamp(12px, 1.2vw, 16px);
   white-space: nowrap;
   font-family: Arial, sans-serif;
   font-weight: 600;
@@ -293,6 +345,14 @@ input[type='checkbox'] {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.autoJb label:hover,
+.autoJb label:focus-visible {
+  border-color: var(--accent-bright);
+  color: #fff;
+  background: linear-gradient(145deg, rgba(24, 115, 220, 0.92), rgba(11, 35, 104, 0.96));
+  box-shadow: 0 0 22px rgba(20, 167, 255, 0.3);
+  transform: translateY(-3px);
+}
 .autoJb input:checked + label {
   border: 1px solid var(--success);
   border-radius: 8px;
@@ -307,33 +367,45 @@ input[type='checkbox'] {
   outline-offset: 3px;
 }
 
+.autoJb label:active,
+.segmented-control label:active,
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 0 10px rgba(20, 167, 255, 0.22);
+}
+
 .main-layout {
   display: grid;
-  grid-template-columns: minmax(230px, 0.68fr) minmax(0, 1.7fr);
-  gap: 24px;
-  width: min(1180px, 100%);
+  grid-template-columns: minmax(280px, 0.55fr) minmax(0, 1.45fr);
+  gap: 18px;
+  width: min(1240px, calc(100% - 40px));
   margin: 0 auto;
   text-align: left;
 }
 .media-box {
-  min-height: 510px;
-  border: 1px solid var(--line);
+  align-self: end;
+  width: max-content;
+  max-width: 100%;
+  min-height: 0;
+  border: 1px solid rgba(3, 15, 39, 0.95);
   border-radius: var(--radius);
-  background: linear-gradient(145deg, rgba(13, 31, 75, 0.48), rgba(3, 8, 25, 0.25));
+  background: linear-gradient(145deg, rgba(5, 15, 40, 0.76), rgba(3, 8, 25, 0.58));
+  box-shadow: inset 0 0 0 1px rgba(0, 8, 24, 0.5);
 }
 .media-box {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 24px;
-  background: linear-gradient(145deg, rgba(13, 31, 75, 0.48), rgba(3, 8, 25, 0.25));
+  padding: 16px;
+  background: linear-gradient(145deg, rgba(5, 15, 40, 0.76), rgba(3, 8, 25, 0.58));
 }
 .status-orbit {
   display: flex;
   align-items: center;
   gap: 9px;
-  color: var(--accent);
+  color: #fff;
   font-size: 9px;
+  font-weight: 600;
   letter-spacing: 1px;
 }
 .status-dot {
@@ -344,7 +416,7 @@ input[type='checkbox'] {
   box-shadow: 0 0 12px var(--accent);
 }
 .media-title {
-  margin: 54px 0 14px;
+  margin: 18px 0 14px;
   font-size: 20px;
   line-height: 1.45;
 }
@@ -457,7 +529,7 @@ input[type='checkbox'] {
   overflow-y: auto;
   color: #5dff78;
   font:
-    12px/1.75 Consolas,
+    15px/1.8 Consolas,
     'Courier New',
     monospace;
   white-space: pre-wrap;
@@ -498,7 +570,7 @@ input[type='checkbox'] {
   }
   .autoJb,
   .segmented-control label {
-    min-height: 50px;
+    min-height: 58px;
     padding: 7px 5px;
   }
   .autoJb {
@@ -509,7 +581,7 @@ input[type='checkbox'] {
     height: 15px;
   }
   .segmented-control label {
-    font-size: 9px;
+    font-size: 11px;
   }
   .console-status {
     min-width: 76px;
@@ -526,7 +598,7 @@ input[type='checkbox'] {
     margin-top: 32px;
   }
   #console {
-    height: clamp(170px, 31vh, 290px);
+    height: clamp(190px, 34vh, 320px);
     max-height: 46vh;
   }
 }
@@ -554,11 +626,23 @@ input[type='checkbox'] {
 }
 
 @media (max-width: 1100px) {
+  body {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
   .main-layout {
     display: block;
   }
   .media-box {
     display: none;
+  }
+  #console {
+    height: min(52vh, 420px);
+    max-height: 52vh;
+    overflow-y: auto;
   }
 }
 
@@ -602,21 +686,22 @@ input[type='checkbox'] {
   }
   .autoJb,
   .segmented-control label {
-    min-height: 46px;
+    min-height: 58px;
   }
   .terminal-heading {
-    min-height: 52px;
+    min-height: 62px;
     padding: 10px 16px;
   }
   #console {
-    height: clamp(180px, 28vh, 300px);
+    height: clamp(230px, 32vh, 340px);
     padding: 15px 18px;
+    font-size: 14px;
   }
   .console-panel > button {
-    min-height: 58px;
+    min-height: 82px;
     margin-top: 9px;
     padding: 12px 20px;
-    font-size: 15px;
+    font-size: 29px;
   }
 }
 
@@ -636,12 +721,40 @@ input[type='checkbox'] {
     font-size: 9px;
   }
   #console {
-    height: 155px;
+    height: 190px;
     padding: 12px 14px;
     font-size: 10px;
   }
   .console-panel > button {
-    min-height: 52px;
-    font-size: 14px;
+    min-height: 68px;
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1101px) {
+  .main-layout {
+    grid-template-columns: minmax(260px, 1fr) minmax(0, 50vw);
+    min-height: calc(100dvh - 170px);
+    width: min(1400px, calc(100% - 40px));
+    margin-right: 3vw;
+    margin-left: auto;
+  }
+  .console-panel {
+    display: flex;
+    flex-direction: column;
+  }
+  .terminal-window {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+  }
+  #console {
+    height: auto;
+    min-height: 0;
+    flex: 1;
+  }
+  .console-panel > button {
+    flex: 0 0 auto;
   }
 }
