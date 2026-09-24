@@ -111,25 +111,30 @@ body > * {
 }
 
 .brand-mark {
-  display: grid;
-  width: 58px;
-  height: 58px;
-  place-items: center;
-  color: #fff;
-  border: 1px solid var(--accent-bright);
-  border-radius: 12px;
-  background: linear-gradient(145deg, #147cff, #102d9c);
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  box-shadow: 0 0 22px rgba(20, 167, 255, 0.28);
-  font-family: 'Orbitron', Arial, sans-serif;
+  display: flex;
+  width: 78px;
+  height: 78px;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.brand-mark img {
+  display: block;
+  width: 150%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 7px rgba(127, 225, 255, 0.9));
 }
 
 h1 {
   margin: 0;
   color: var(--ink);
-  font-size: clamp(28px, 4.5vw, 50px);
+  font-size: clamp(40px, 6vw, 70px);
   letter-spacing: 3px;
   line-height: 1.1;
   font-family: 'Orbitron', Arial, sans-serif;
@@ -142,6 +147,7 @@ h1 {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 4px rgba(20, 167, 255, 0.48));
 }
 
 .title-ps4 {
@@ -149,7 +155,7 @@ h1 {
 }
 
 .title-jailbreak {
-  background-image: linear-gradient(180deg, #e5f5ff 5%, #40b8ff 48%, #1269e8 100%);
+  background-image: linear-gradient(120deg, #28d7ff 0%, #2787f5 46%, #6d5ce7 100%);
 }
 
 .byline {
@@ -164,7 +170,9 @@ h1 {
 
 .byline strong {
   color: #fff;
+  font-size: 13px;
   font-weight: 800;
+  letter-spacing: 1.5px;
 }
 
 h3 {
@@ -554,12 +562,11 @@ button:active {
     gap: 13px;
   }
   .brand-mark {
-    width: 48px;
-    height: 48px;
-    font-size: 13px;
+    width: 58px;
+    height: 58px;
   }
   h1 {
-    font-size: 24px;
+    font-size: 34px;
     letter-spacing: 2px;
   }
   .btn-container {
@@ -668,11 +675,14 @@ button:active {
     font-size: 13px;
   }
   h1 {
-    font-size: clamp(22px, 3vw, 32px);
+    font-size: clamp(32px, 4.5vw, 48px);
   }
   .byline {
     margin-top: 4px;
     font-size: 9px;
+  }
+  .byline strong {
+    font-size: 12px;
   }
   h3 {
     margin: 8px auto 12px;
