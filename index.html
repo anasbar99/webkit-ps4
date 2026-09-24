@@ -34,7 +34,7 @@
         <div class="btn-container">
           <div class="autoJb">
             <input id="autoJbInput" type="checkbox" />
-            <label for="autoJbInput" id="autoJbLabel">
+            <label for="autoJbInput" id="autoJbLabel" tabindex="0">
               <img src="includes/icons/automation.png" alt="" aria-hidden="true" />
               <span id="autoJbLabelText">Auto Jailbreak</span>
             </label>
@@ -43,9 +43,9 @@
             <span class="option-label">EXPLOIT CHAIN</span>
             <div class="segmented-control">
               <input type="radio" name="kernel" id="netctrl-exploit" value="netctrl" />
-              <label for="netctrl-exploit">NetCtrl</label>
+              <label for="netctrl-exploit" tabindex="0">NetCtrl</label>
               <input type="radio" name="kernel" id="lapse-exploit" value="lapse" />
-              <label for="lapse-exploit">Lapse</label>
+              <label for="lapse-exploit" tabindex="0">Lapse</label>
             </div>
           </form>
         </div>
@@ -66,10 +66,13 @@
           <pre id="console">Ready. Awaiting execution...</pre>
         </div>
 
-        <button id="jeilbrek">
-          <img src="includes/icons/thunder.png" alt="" />
-          <span>JAILBREAK</span>
-        </button>
+        <div class="action-row">
+          <button id="jeilbrek">
+            <img src="includes/icons/thunder.png" alt="" />
+            <span>JAILBREAK</span>
+          </button>
+          <button id="stop-exploit" type="button" disabled>STOP</button>
+        </div>
       </section>
     </div>
 

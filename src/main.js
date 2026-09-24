@@ -10,6 +10,7 @@ function load_script(src, remote = true, transfer = []) {
 
 async function doJb() {
   await load_script('src/misc.js');
+  if (window.jailbreakStopRequested) return;
 
   try {
     version.init();
@@ -17,6 +18,7 @@ async function doJb() {
       case 4:
         await load_script('src/ps4/constants.js');
         await load_script('src/ps4/userland.js');
+        if (window.jailbreakStopRequested) return;
         break;
       case 5:
         //TODO
@@ -28,9 +30,11 @@ async function doJb() {
     logger.info('===USERLAND===');
 
     let rw = undefined;
+    if (window.jailbreakStopRequested) return;
     if (arw.master === undefined) {
       rw = await init_rw();
     }
+    if (window.jailbreakStopRequested) return;
 
     init_arw(rw);
     init_rop();
@@ -40,6 +44,7 @@ async function doJb() {
 
     await load_script('src/loader.js');
     await load_script('src/workers.js');
+    if (window.jailbreakStopRequested) return;
 
     switch (version.console) {
       case 4:
@@ -53,6 +58,7 @@ async function doJb() {
     }
 
     await load_script(`src/${exploitChain}.js`);
+    if (window.jailbreakStopRequested) return;
 
     logger.info(`===${exploitChain.toUpperCase()}===`);
 
@@ -60,6 +66,7 @@ async function doJb() {
       if (exploitChain == 'lapse') {
         init();
         await setup();
+        if (window.jailbreakStopRequested) return;
         await double_free_reqs2();
         leak_kaddrs();
         double_free_reqs1();
@@ -81,6 +88,7 @@ async function doJb() {
       } else {
         init();
         await setup();
+        if (window.jailbreakStopRequested) return;
         await ucred_triple_free();
         leak_kqueue();
         await make_karw();
@@ -104,18 +112,21 @@ async function doJb() {
     }
 
     find_all_proc();
+    if (window.jailbreakStopRequested) return;
 
     // Avoid reapplying if already done
     if (fn.setuid.invoke(0) === -1) {
       jailbreak();
 
       const kpatches_rsp = await fetch(`src/ps4/patches/${constants.KPATCH}`);
+      if (window.jailbreakStopRequested) return;
       const kpatches_buf = await kpatches_rsp.arrayBuffer();
       const kpatches_u8 = new Uint8Array(kpatches_buf);
 
       kernel_patches(kpatches_u8);
 
       const bin_rsp = await fetch('src/payload.bin');
+      if (window.jailbreakStopRequested) return;
       const bin_buf = await bin_rsp.arrayBuffer();
       const bin_u8 = new Uint8Array(bin_buf);
 

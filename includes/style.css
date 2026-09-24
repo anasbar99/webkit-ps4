@@ -248,6 +248,11 @@ input[type='radio'] {
   box-shadow: 0 0 22px rgba(20, 167, 255, 0.3);
   transform: translateY(-3px);
 }
+.segmented-control label:focus,
+.autoJb label:focus {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 3px;
+}
 input[type='radio']:checked + label {
   border-color: var(--accent-bright);
   color: #fff;
@@ -546,6 +551,45 @@ button:active {
 .console-panel > button {
   margin-top: 14px;
 }
+.action-row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 14px;
+}
+.action-row > button {
+  margin-top: 0;
+}
+.action-row > button:first-child {
+  flex: 1;
+}
+.action-row #stop-exploit {
+  width: 112px;
+  min-width: 112px;
+  min-height: 64px;
+  padding: 10px 14px;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.action-row #stop-exploit:disabled {
+  opacity: 0.5;
+}
+
+#console::-webkit-scrollbar {
+  width: 6px;
+}
+#console::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(3, 12, 36, 0.88);
+}
+#console::-webkit-scrollbar-thumb {
+  border: 1px solid rgba(3, 12, 36, 0.88);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #21e2ff, #2868e8);
+}
+#console::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #7ceeff, #5c8fff);
+}
 
 @media (max-width: 650px) {
   body {
@@ -713,6 +757,9 @@ button:active {
     padding: 12px 20px;
     font-size: 29px;
   }
+  .action-row #stop-exploit {
+    min-height: 68px;
+  }
 }
 
 @media (max-width: 650px) and (max-height: 700px) {
@@ -738,6 +785,15 @@ button:active {
   .console-panel > button {
     min-height: 68px;
     font-size: 24px;
+  }
+  .action-row {
+    gap: 7px;
+  }
+  .action-row #stop-exploit {
+    width: 86px;
+    min-width: 86px;
+    min-height: 58px;
+    font-size: 13px;
   }
 }
 
