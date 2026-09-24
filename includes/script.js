@@ -6,6 +6,7 @@ const stopExploitBtn = document.getElementById('stop-exploit');
 const UAElement = document.getElementById('UA');
 const consoleStatus = document.getElementById('console-status');
 const consoleStatusText = document.getElementById('console-status-text');
+const consoleOutput = document.getElementById('console');
 
 const storedAutoJb = localStorage.getItem('autoJb');
 let autoJbValue = storedAutoJb !== null ? storedAutoJb === 'true' : true;
@@ -47,6 +48,8 @@ jeilbrekBtn.addEventListener('click', function (e) {
 stopExploitBtn.addEventListener('click', function () {
   window.jailbreakStopRequested = true;
   stopInterval();
+  consoleOutput.append('Jailbreak Stopped.\n');
+  consoleOutput.scrollTop = consoleOutput.scrollHeight;
   setConsoleStatus('on');
   jeilbrekBtn.disabled = false;
   stopExploitBtn.disabled = true;

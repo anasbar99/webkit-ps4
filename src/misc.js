@@ -14,11 +14,14 @@ const logger = {
     }
   },
   log(msg) {
+    if (typeof window !== 'undefined' && window.jailbreakStopRequested) {
+      return;
+    }
     if (is_worker()) {
-      self.postMessage({ type: "log", value: `[${self.name}]${msg}` });
+      self.postMessage({ type: 'log', value: `[${self.name}]${msg}` });
     } else {
       if (this.console === undefined) {
-        this.console = document.getElementById("console");
+        this.console = document.getElementById('console');
       }
 
       this.console.append(`${msg}\n`);
@@ -50,7 +53,7 @@ const version = {
     this.minor = parseInt(matches[3], 16);
   },
   toString() {
-    return `${this.major}.${this.minor.toString(16).padStart(2, "0")}`;
+    return `${this.major}.${this.minor.toString(16).padStart(2, '0')}`;
   },
 };
 //#endregion
@@ -67,10 +70,10 @@ class BInt {
       case 1:
         let value = arguments[0];
         switch (typeof value) {
-          case "boolean":
+          case 'boolean':
             lo = value ? 1 : 0;
             break;
-          case "number":
+          case 'number':
             if (Number.isNaN(value)) {
               throw new TypeError(`Number ${value} is NaN`);
             }
@@ -90,8 +93,8 @@ class BInt {
             }
 
             break;
-          case "string":
-            if (value.startsWith("0x")) {
+          case 'string':
+            if (value.startsWith('0x')) {
               value = value.slice(2);
             }
 
@@ -99,7 +102,7 @@ class BInt {
               throw new RangeError(`String ${value} is out of range !!`);
             }
 
-            value = value.padStart(16, "0");
+            value = value.padStart(16, '0');
 
             for (let i = 0; i < 8; i++) {
               const start = value.length - 2 * (i + 1);
@@ -112,7 +115,7 @@ class BInt {
             hi = BInt.View.getUint32(4, true);
 
             break;
-          case "object":
+          case 'object':
             if (value !== null) {
               if (Number.isInteger(value.lo) && Number.isInteger(value.hi)) {
                 lo = value.lo;
@@ -148,7 +151,7 @@ class BInt {
 
         break;
       default:
-        throw new TypeError("Unsupported input !!");
+        throw new TypeError('Unsupported input !!');
     }
 
     this.lo = lo;
@@ -188,11 +191,11 @@ class BInt {
   }
 
   toString() {
-    return "0x" + this.hi.toString(16).padStart(8, "0") + this.lo.toString(16).padStart(8, "0");
+    return '0x' + this.hi.toString(16).padStart(8, '0') + this.lo.toString(16).padStart(8, '0');
   }
 
   [Symbol.toPrimitive](hint) {
-    if (hint === "string") {
+    if (hint === 'string') {
       return this.toString();
     }
 
@@ -223,7 +226,7 @@ class BInt {
     value = value instanceof BInt ? value : new BInt(value);
 
     if (value === 0) {
-      throw new Error("Division by zero");
+      throw new Error('Division by zero');
     }
 
     let r = new BInt();
@@ -282,7 +285,7 @@ class BInt {
     const c = lo > 0xffffffff ? 1 : 0;
     const hi = this.hi + value.hi + c;
     if (hi > 0xffffffff) {
-      throw new RangeError("add overflowed !!");
+      throw new RangeError('add overflowed !!');
     }
 
     return new BInt(hi, lo);
@@ -292,7 +295,7 @@ class BInt {
     value = value instanceof BInt ? value : new BInt(value);
 
     if (this.lt(value)) {
-      throw new RangeError("sub underflowed !!");
+      throw new RangeError('sub underflowed !!');
     }
 
     const b = this.lo < value.lo ? 1 : 0;
@@ -315,7 +318,7 @@ class BInt {
     const c = lo > 0xffffffff ? 1 : 0;
     const hi = m11 + Math.floor(d / 0x100000000) + c;
     if (hi > 0xffffffff) {
-      throw new Error("mul overflowed !!");
+      throw new Error('mul overflowed !!');
     }
 
     return new BInt(hi, lo);
@@ -395,7 +398,7 @@ class BInt {
 
   alignUp(alignment) {
     if (alignment <= 0 || (alignment & (alignment - 1)) !== 0) {
-      throw new RangeError("alignment must be power of 2");
+      throw new RangeError('alignment must be power of 2');
     }
 
     const mask = alignment - 1;
@@ -415,7 +418,7 @@ class BInt {
 
   alignDown(alignment) {
     if (alignment <= 0 || (alignment & (alignment - 1)) !== 0) {
-      throw new RangeError("alignment must be power of 2");
+      throw new RangeError('alignment must be power of 2');
     }
 
     const mask = alignment - 1;
@@ -432,7 +435,7 @@ Number.prototype.hex = function (padded = false, maxLength = 16) {
   let str = this.toString(16).toUpperCase();
 
   if (padded) {
-    str = str.padStart(maxLength, "0");
+    str = str.padStart(maxLength, '0');
   }
 
   return `0x${str}`;
@@ -466,6 +469,6 @@ BInt.View = new DataView(new ArrayBuffer(8));
 //#endregion
 //#region Functions
 function is_worker() {
-  return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+  return typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
 }
 //#endregion

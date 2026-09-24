@@ -376,8 +376,16 @@ input[type='checkbox'] {
 }
 .autoJb input:focus-visible + label,
 .segmented-control input:focus-visible + label {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
+  outline: none;
+}
+
+.autoJb label:focus,
+.autoJb label:focus-visible,
+.segmented-control label:focus,
+.segmented-control label:focus-visible,
+button:focus,
+button:focus-visible {
+  outline: none;
 }
 
 .autoJb label:active,
@@ -812,13 +820,15 @@ button:active {
   .terminal-window {
     display: flex;
     min-height: 0;
-    flex: 1;
+    flex: 0 1 auto;
     flex-direction: column;
   }
   #console {
-    height: auto;
+    height: clamp(180px, 34vh, 420px);
+    max-height: calc(100dvh - 300px);
     min-height: 0;
-    flex: 1;
+    flex: 0 1 auto;
+    overflow-y: auto;
   }
   .console-panel > button {
     flex: 0 0 auto;
