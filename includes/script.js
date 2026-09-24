@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
     primeExploitSelection();
     setTimeout(function () {
       if (checkbox.checked && !jeilbrekBtn.disabled) jailbreakCountdown();
-    }, 300);
+    }, 1800);
   }
 });
 
