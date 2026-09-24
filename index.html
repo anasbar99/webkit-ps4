@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" manifest="cache.manifest">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PS4 JAILBREAK</title>
+    <link rel="stylesheet" href="includes/style.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="brand-mark">S</div>
+      <div>
+        <h1>PS4 JAILBREAK</h1>
+        <p class="byline">by Sanchezz Aja</p>
+      </div>
+    </header>
+    <h3 id="UA">Running on:</h3>
+
+    <hr />
+
+    <div class="main-layout">
+      <div class="media-box">
+        <div class="status-orbit">
+          <span class="status-dot"></span>
+          <span>READY TO DEPLOY</span>
+        </div>
+        <p class="media-title">Kernel access<br /><strong>starts here.</strong></p>
+        <p class="media-copy">Select an exploit chain and launch the payload when your console is ready.</p>
+      </div>
+
+      <section class="console-panel" aria-label="Exploit console">
+        <div class="btn-container">
+          <div class="autoJb">
+            <input id="autoJbInput" type="checkbox" />
+            <label for="autoJbInput" id="autoJbLabel">
+              <img src="includes/icons/automation.png" alt="" aria-hidden="true" />
+              <span id="autoJbLabelText">Auto Jailbreak</span>
+            </label>
+          </div>
+          <form id="kernel-options" aria-label="Choose kernel exploit">
+            <span class="option-label">EXPLOIT CHAIN</span>
+            <div class="segmented-control">
+              <input type="radio" name="kernel" id="netctrl-exploit" value="netctrl" />
+              <label for="netctrl-exploit">NetCtrl</label>
+              <input type="radio" name="kernel" id="lapse-exploit" value="lapse" />
+              <label for="lapse-exploit">Lapse</label>
+            </div>
+          </form>
+        </div>
+
+        <div class="terminal-window">
+          <div class="terminal-heading">
+            <span class="terminal-lamp"></span>
+            <div>
+              <strong>EXPLOIT CONSOLE</strong>
+              <small>PS4 Webkit Output</small>
+            </div>
+            <div id="console-status" class="console-status is-on" role="status" aria-live="polite">
+              <span class="status-indicator"></span>
+              <span id="console-status-text">On</span>
+              <img id="console-status-icon" src="includes/icons/thunder.png" alt="" />
+            </div>
+          </div>
+          <pre id="console">Ready. Awaiting execution...</pre>
+        </div>
+
+        <button id="jeilbrek">
+          <img src="includes/icons/thunder.png" alt="" />
+          <span>JAILBREAK</span>
+        </button>
+      </section>
+    </div>
+
+    <script src="src/main.js"></script>
+    <script src="includes/script.js"></script>
+  </body>
+</html>
