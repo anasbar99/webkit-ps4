@@ -47,6 +47,7 @@ jeilbrekBtn.addEventListener('click', function (e) {
 
 stopExploitBtn.addEventListener('click', function () {
   window.jailbreakStopRequested = true;
+  localStorage.setItem('autoJb', 'false');
   stopInterval();
   consoleOutput.append('Jailbreak Stopped.\n');
   consoleOutput.scrollTop = consoleOutput.scrollHeight;
@@ -54,6 +55,10 @@ stopExploitBtn.addEventListener('click', function () {
   jeilbrekBtn.disabled = false;
   stopExploitBtn.disabled = true;
   label.textContent = 'Auto Jailbreak';
+
+  setTimeout(function () {
+    location.reload();
+  }, 1200);
 });
 
 checkbox.addEventListener('change', function () {

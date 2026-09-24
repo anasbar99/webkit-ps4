@@ -40,7 +40,7 @@ async function doJb() {
     init_rop();
     init_syscalls();
 
-    logger.info('===END===');
+    logger.info('===USERLAND READY===');
 
     await load_script('src/loader.js');
     await load_script('src/workers.js');
@@ -114,7 +114,7 @@ async function doJb() {
     find_all_proc();
     if (window.jailbreakStopRequested) return;
 
-    // Avoid reapplying if already done
+    // Avoid reapplying kernel changes if they are already active.
     if (fn.setuid.invoke(0) === -1) {
       jailbreak();
 
@@ -124,14 +124,16 @@ async function doJb() {
       const kpatches_u8 = new Uint8Array(kpatches_buf);
 
       kernel_patches(kpatches_u8);
-
-      const bin_rsp = await fetch('src/payload.bin');
-      if (window.jailbreakStopRequested) return;
-      const bin_buf = await bin_rsp.arrayBuffer();
-      const bin_u8 = new Uint8Array(bin_buf);
-
-      load_bin(bin_u8);
     }
+
+    const bin_rsp = await fetch('src/payload.bin');
+    if (window.jailbreakStopRequested) return;
+    const bin_buf = await bin_rsp.arrayBuffer();
+    const bin_u8 = new Uint8Array(bin_buf);
+
+    load_bin(bin_u8);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    if (window.jailbreakStopRequested) return;
 
     logger.info('===END===');
     setConsoleStatus('done');
